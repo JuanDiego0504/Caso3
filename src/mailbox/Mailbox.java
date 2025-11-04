@@ -1,6 +1,6 @@
 package mailbox;
 
-import model.Message;
+//import model.Message;
 
 public interface Mailbox {
     int size();
