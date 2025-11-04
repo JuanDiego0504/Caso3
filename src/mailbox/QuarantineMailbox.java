@@ -8,19 +8,19 @@ public class QuarantineMailbox implements Mailbox {
     private final Queue<Message> q = new ArrayDeque<>();
     private volatile boolean endReceived = false;
 
-    public synchronized void put(Message m) { // productores (filtros) depositan
+    public synchronized void put(Message m) { 
         q.add(m);
         notifyAll();
     }
 
-    public Message tryTake() { // consumidor semiactivo: devuelve null si vacío
+    public Message tryTake() { 
         synchronized (this) {
             return q.poll();
         }
     }
 
     public synchronized void putEnd() {
-        // usamos un END especial (clientId=-1) sólo para terminar al manager
+
         if (!endReceived) {
             endReceived = true;
             q.add(new Message(model.Type.END, -1, -1, false));

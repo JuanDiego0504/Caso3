@@ -2,10 +2,10 @@ package model;
 
 public class Message {
     public final Type type;
-    public final int clientId;    // id del cliente (o -1 si no aplica)
-    public final int seq;         // secuencial por cliente (o -1 si no aplica)
-    public final boolean spam;    // sólo para MAIL
-    public int quarantineTicks;   // sólo para MAIL->quarantine (10k..20k)
+    public final int clientId;    
+    public final int seq;        
+    public final boolean spam;   
+    public int quarantineTicks;   
 
     public Message(Type type, int clientId, int seq, boolean spam) {
         this.type = type;

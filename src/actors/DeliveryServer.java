@@ -18,9 +18,9 @@ public class DeliveryServer extends Thread {
 
     @Override public void run() {
         while (true) {
-            Message m = delivery.tryTake(); // ACTIVA: poll
+            Message m = delivery.tryTake(); 
             if (m == null) {
-                Thread.yield();               // pausa mínima
+                Thread.yield();             
                 try { Thread.sleep(5); } catch (InterruptedException e) { Thread.currentThread().interrupt(); return; }
                 continue;
             }

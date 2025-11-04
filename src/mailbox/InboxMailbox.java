@@ -15,7 +15,7 @@ public class InboxMailbox implements Mailbox {
             try { wait(); } catch (InterruptedException e) { Thread.currentThread().interrupt(); return; }
         }
         q.add(m);
-        notifyAll(); // despertar consumidores
+        notifyAll(); 
     }
 
     public synchronized Message take() {
@@ -23,7 +23,7 @@ public class InboxMailbox implements Mailbox {
             try { wait(); } catch (InterruptedException e) { Thread.currentThread().interrupt(); return null; }
         }
         Message m = q.remove();
-        notifyAll(); // despertar productores
+        notifyAll(); 
         return m;
     }
 

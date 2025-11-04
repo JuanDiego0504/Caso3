@@ -11,8 +11,8 @@ import java.util.List;
 import java.util.Random;
 
 public class QuarantineManager extends Thread {
-    private final QuarantineMailbox quarantine;   // semiactiva
-    private final DeliveryMailbox delivery;       // semiactiva
+    private final QuarantineMailbox quarantine;  
+    private final DeliveryMailbox delivery;       
     private final Random rnd;
 
     public QuarantineManager(QuarantineMailbox quarantine, DeliveryMailbox delivery, Random rnd) {
@@ -27,20 +27,20 @@ public class QuarantineManager extends Thread {
         List<Message> buffer = new LinkedList<>();
 
         while (true) {
-            // 1) intentar drenar algo (semiactivo)
+           
             Message m;
             while ((m = quarantine.tryTake()) != null) {
                 if (m.type == Type.END) {
-                    endReceived = true; // pero seguimos hasta vaciar cuarentena
+                    endReceived = true; 
                 } else {
                     buffer.add(m);
                 }
             }
 
-            // 2) tick cada ~1s
+           
             try { Thread.sleep(1000); } catch (InterruptedException e) { Thread.currentThread().interrupt(); return; }
 
-            // 3) procesar buffer: decrementar ticks y pasar a delivery (o descartar)
+          
             for (Iterator<Message> it = buffer.iterator(); it.hasNext();) {
                 Message msg = it.next();
                 msg.quarantineTicks = Math.max(0, msg.quarantineTicks - 1000);
@@ -56,7 +56,7 @@ public class QuarantineManager extends Thread {
                 }
             }
 
-            // 4) condición de terminación: recibí END y ya no quedan mensajes en buffer ni en cola
+      
             if (endReceived && buffer.isEmpty() && quarantine.size() == 0) break;
         }
         System.out.println("[QManager] terminó.");

@@ -25,7 +25,7 @@ public class DeliveryMailbox implements Mailbox {
         }
     }
 
-    public Message tryTake() { // servidores: espera ACTIVA (poll + pausa mínima afuera)
+    public Message tryTake() { 
         synchronized (this) {
             return q.poll();
         }
